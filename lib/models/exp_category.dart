@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_app/constants/colours.dart';
 import 'package:finance_app/constants/icons.dart';
 import 'package:flutter/material.dart';
@@ -34,5 +35,15 @@ class ExpenseCategory {
       entries: map['entries'],
       amount: map['amount'],
     );
+  }
+}
+
+class ExpenseCategoryRemoteDatasource {
+  Future createExpenseCategory(ExpenseCategory expenseCategory) async {
+    final docExpenseCategory = FirebaseFirestore.instance
+        .collection('expense-type')
+        .doc(expenseCategory.name);
+    final json = expenseCategory.toMap();
+    await docExpenseCategory.set(json);
   }
 }
