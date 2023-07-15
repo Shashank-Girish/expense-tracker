@@ -46,4 +46,12 @@ class ExpenseCategoryRemoteDatasource {
     final json = expenseCategory.toMap();
     await docExpenseCategory.set(json);
   }
+
+  Future<List<Iterable<ExpenseCategory>>> readExpenseCategory() {
+    return FirebaseFirestore.instance
+        .collection('expense-type')
+        .snapshots()
+        .map((snap) => snap.docs.map((e) => ExpenseCategory.fromMap(e.data())))
+        .toList();
+  }
 }
