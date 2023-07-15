@@ -1,3 +1,4 @@
+import 'package:finance_app/pages/dashboard.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -8,8 +9,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Widget> pages = [
-    /*TotalExpensePage(), AddExpensePage(), TimeBasedDataPage()*/
+  List<Widget> pages = const [
+    DashboardPage(), /*AddExpensePage(), TimeBasedDataPage()*/
   ];
   int _selectedIndex = 0;
   @override
@@ -27,15 +28,21 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: pages[_selectedIndex],
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/add-expense');
+        },
+        child: const Icon(Icons.add),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: 'Total',
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'Add',
+            icon: Icon(Icons.query_stats),
+            label: 'Category Wise Usage',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
