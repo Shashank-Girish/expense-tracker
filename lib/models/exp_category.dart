@@ -52,4 +52,12 @@ class ExpenseCategoryRemoteDatasource {
         .snapshots()
         .map((snap) => snap.docs.map((e) => ExpenseCategory.fromMap(e.data())).toList());
   }
+
+  Future updateExpenseCategory(ExpenseCategory expenseCategory) async {
+    final docExpenseCategory = FirebaseFirestore.instance
+        .collection('expense-type')
+        .doc(expenseCategory.name);
+    final json = expenseCategory.toMap();
+    await docExpenseCategory.update(json);
+  }
 }
