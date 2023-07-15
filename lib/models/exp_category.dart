@@ -21,7 +21,6 @@ class ExpenseCategory {
   Map<String, dynamic> toMap() {
     return {
       'name': name,
-      'color': color.value,
       'entries': entries,
       'amount': amount,
     };
@@ -47,11 +46,10 @@ class ExpenseCategoryRemoteDatasource {
     await docExpenseCategory.set(json);
   }
 
-  Future<List<Iterable<ExpenseCategory>>> readExpenseCategory() {
+  Stream<List<ExpenseCategory>> readExpenseCategory() {
     return FirebaseFirestore.instance
         .collection('expense-type')
         .snapshots()
-        .map((snap) => snap.docs.map((e) => ExpenseCategory.fromMap(e.data())))
-        .toList();
+        .map((snap) => snap.docs.map((e) => ExpenseCategory.fromMap(e.data())).toList());
   }
 }
